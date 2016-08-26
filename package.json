@@ -1,0 +1,12 @@
+{
+  "name": "express-mongoose-admin-setup",
+  "main": "index.js",
+  "version": "0.0.1",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "flash": "^1.1.0",
+    "http-status-codes": "^1.0.6",
+    "jade": "^1.11.0",
+    "mongoose": "^4.5.10"
+  }
+}

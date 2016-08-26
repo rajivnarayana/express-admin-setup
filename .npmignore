@@ -1,2 +1,5 @@
 *.ts
 *.js.map
+.vscode
+tsconfig.js
+sample

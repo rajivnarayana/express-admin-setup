@@ -1,0 +1,10 @@
+{
+  "name": "express-sample-admin-setup",
+  "version": "0.0.1",
+  "main": "app.js",
+  "dependencies": {
+    "cms-forms": "github:rajivnarayana/cms-forms",
+    "express": "^4.14.0",
+    "express-mongoose-admin-setup": "file:///Users/rajiv/Development/admin-setup"
+  }
+}
