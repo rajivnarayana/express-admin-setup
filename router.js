@@ -11,8 +11,9 @@ const express_1 = require("express");
 const body_parser_1 = require("body-parser");
 const cms_forms_1 = require("cms-forms");
 class SetupRouter {
-    constructor(odm) {
+    constructor(odm, redirectURL = '/admin') {
         this.odm = odm;
+        this.redirectURL = redirectURL;
     }
     getRouter() {
         let router = express_1.Router();
@@ -25,8 +26,10 @@ class SetupRouter {
         router.route('/').all((req, res, next) => __awaiter(this, void 0, void 0, function* () {
             try {
                 let admin = yield this.odm.findOne({ role: 'admin' });
-                if (admin)
-                    throw new Error("Admin already created");
+                if (admin) {
+                    req.flash('info', 'Admin already created');
+                    return res.redirect(this.redirectURL);
+                }
                 else {
                     res.form = new AdminSignupForm();
                     res.form.action = relativeURL('');
@@ -42,9 +45,10 @@ class SetupRouter {
                     throw new Error('Invalid username or password');
                 }
                 let admin = yield this.odm.addAdmin(req.body);
-                res.redirect('/admin');
+                res.redirect(this.redirectURL);
             }
             catch (error) {
+                res.form.setValues(req.body);
                 res.html.errors = error;
                 next();
             }

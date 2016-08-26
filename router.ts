@@ -4,7 +4,7 @@ import { Form, Field, WidgetTypes } from "cms-forms";
 import { ODM } from "./module";
 
 export class SetupRouter {
-    constructor(private odm : ODM) {
+    constructor(private odm : ODM, private redirectURL = '/admin') {
     }
 
     public getRouter() : Router {
@@ -23,7 +23,7 @@ export class SetupRouter {
                 let admin = await this.odm.findOne({ role: 'admin' });
                 if (admin) {
                     req.flash('info', 'Admin already created')
-                    return res.redirect('/users/login')
+                    return res.redirect(this.redirectURL)
                 }
                 else {
                     res.form = new AdminSignupForm();
@@ -39,7 +39,7 @@ export class SetupRouter {
                     throw new Error('Invalid username or password');
                 }
                 let admin = await this.odm.addAdmin(req.body)
-                res.redirect('/admin');
+                res.redirect(this.redirectURL);
             } catch (error) {
                 res.form.setValues(req.body);
                 res.html.errors = error;

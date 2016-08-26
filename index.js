@@ -9,11 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 const router_1 = require("./router");
 const module_1 = require("./module");
-function router(UsersModel) {
-    return new router_1.SetupRouter(new module_1.ODM(UsersModel)).getRouter();
+function router(UsersModel, redirectURL = '/admin') {
+    return new router_1.SetupRouter(new module_1.ODM(UsersModel), redirectURL).getRouter();
 }
 exports.router = router;
-function setup(router_, userModel, path = '/setup', roleKey = 'role', role = 'admin') {
+function setup(router_, userModel, path = '/setup', redirectURL = '/admin', roleKey = 'role', role = 'admin') {
     let odm = new module_1.ODM(userModel, roleKey, role);
     router_.use(path, router(userModel));
     router_.use((req, res, next) => __awaiter(this, void 0, void 0, function* () {
